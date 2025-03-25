@@ -1,0 +1,88 @@
+#server:
+#  port: 8090
+#
+#  spring:
+#    application:
+#      name: API-GATEWAY
+#
+#  cloud:
+#    gateway:
+#      routes:
+#        #  Authentication Service (No JWT Required)
+#        - id: authentication-service
+#          port: 8088
+#          uri: lb://AUTHENTICATION-SERVICE
+#          predicates:
+#            - Path=/auth/**
+#
+#        #  Flight Search Service
+#        - id: flight-service
+#          port: 8081
+#          uri: lb://FLIGHT-SEARCH-SERVICE
+#          predicates:
+#            - Path=/flights/**
+#          filters:
+#            - AuthenticationFilter
+#
+#        #  Hotel Search Service
+#        - id: hotel-service
+#          uri: lb://HOTEL-SEARCH-SERVICE
+#          predicates:
+#            - Path=/hotels/**
+#          filters:
+#            - AuthenticationFilter
+#
+#        #  Hotel Booking Service
+#        - id: hotel-booking-service
+#          uri: lb://HOTEL-BOOKING-SERVICE
+#          predicates:
+#            - Path=/bookings/**
+#          filters:
+#            - AuthenticationFilter
+#
+#        #  Flight Booking Service
+#        - id: flight-booking-service
+#          uri: lb://FLIGHT-BOOKING-SERVICE
+#          predicates:
+#            - Path=/flight-bookings/**
+#          filters:
+#            - AuthenticationFilter
+#
+#        #  Admin Service
+#        - id: admin-service
+#          uri: lb://ADMINISTRATOR-SERVICE
+#          predicates:
+#            - Path=/admin/**
+#          filters:
+#            - AuthenticationFilter
+#
+#        #  Payment Service
+#        - id: payment-service
+#          uri: lb://PAYMENT-SERVICE
+#          predicates:
+#            - Path=/payments/**
+#          filters:
+#            - AuthenticationFilter
+#
+#        #  Customer Service
+#        - id: customer-service
+#          uri: lb://CUSTOMER-SERVICE
+#          predicates:
+#            - Path=/customers/**
+#          filters:
+#            - AuthenticationFilter
+#
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka/
+#    register-with-eureka: true
+#    fetch-registry: true
+#    enabled: true  #  Ensures Eureka client is enabled
+#
+#  instance:
+#    prefer-ip-address: true
+#    hostname: localhost  # Forces hostname to avoid UNKNOWN error
+#    instance-id: ${spring.application.name}:${server.port}
+#
+#spring.cloud.discovery.enabled: true
